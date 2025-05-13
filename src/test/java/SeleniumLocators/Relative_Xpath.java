@@ -15,8 +15,13 @@ public class Relative_Xpath {
 		
 		//single attribute
 		/*
+		 
+		//Relative Xpath
 		driver.findElement(By.xpath("//a[@id='login_Layer']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Enter location']")).sendKeys("Hyderabad");
+		
+		//Absolute Xpath
+		driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/a[1]")).click();
 		*/
 		
 		//mutiple attributes
