@@ -43,6 +43,8 @@ public class Fluent_Wait {
 		
 		//action
 		username.sendKeys("Admin");
+		
+		driver.close();
 	
 	}
 
