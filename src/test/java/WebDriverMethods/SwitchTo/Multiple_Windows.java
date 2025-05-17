@@ -24,7 +24,8 @@ public class Multiple_Windows {
 		driver.findElement(By.cssSelector(".wikipedia-search-button")).click();
 		
 		//storing n number for links to a List using FindElements
-		List<WebElement> elements = driver.findElements(By.xpath("//div[@id='Wikipedia1_wikipedia-search-results']/child::div"));
+		List<WebElement> elements = driver.findElements(By.xpath("//div[@id='Wikipedia1_wikipedia-search-results']/child::div/a"));
+		//List<WebElement> elements = driver.findElements(By.xpath("//div[@id='wikipedia-search-result-link']/a"));
 		
 		System.out.println(elements.size());
 		
@@ -34,10 +35,15 @@ public class Multiple_Windows {
 			WebElement link = driver.findElement(By.xpath("//div[@id='Wikipedia1_wikipedia-search-results']/child::div['+i+']"));
 			link.click();
 		}
-		*/
+		
 		
 		for(WebElement link : elements) {
 			link.click();
+		}
+		*/
+		
+		for (int i =0; i< elements.size(); i++) {
+			elements.get(i).click();
 		}
 		
 		//store n number of window ID's into a Set
