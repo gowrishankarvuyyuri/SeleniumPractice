@@ -14,12 +14,14 @@ public class Alerts_PopUps {
 	public static void main(String[] args) {
 		
 		WebDriver driver = new ChromeDriver();
-		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
+		/*
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 		
 		driver.get("https://testautomationpractice.blogspot.com/");
 		driver.manage().window().maximize();
+		*/
 		
 		//Normal Pop-Ups which has only OK
 		/*
@@ -76,6 +78,16 @@ public class Alerts_PopUps {
 			System.out.println("Test Case Failed");
 		*/
 		
+		//Authentication Pop-Ups
+		/*
+		 To handle authenticated url popups/alerts in the url itself had to pass username and password to bypass it
+		 Example:
+		 	Normal Link: https://www.naukri.com/
+		 	Updated Link: https://gowrishankarvuyyuri:GowriShankar@www.naukri.com/
+		 	Syntax: https://UserName:Password@www.naukri.com/
+		 	
+		 	driver.get(Updated Link);
+		 */
 	}
 
 }
