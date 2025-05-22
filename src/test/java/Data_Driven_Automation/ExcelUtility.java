@@ -1,6 +1,7 @@
 package Data_Driven_Automation;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -13,6 +14,7 @@ import org.openqa.selenium.WebElement;
 public class ExcelUtility {
 	
 	public static FileInputStream fi;
+	public static FileOutputStream fo;
 	public static XSSFWorkbook wb;
 	public static XSSFSheet ws;
 	public static XSSFRow wr;
@@ -69,5 +71,24 @@ public class ExcelUtility {
 		wb.close();
 		fi.close();
 		return cell_data;
+	}
+	
+	public static void setCellData(String path, String sheet_name, int row, int cell, String message) throws IOException {
+		
+		fi = new FileInputStream(path);
+		wb = new XSSFWorkbook(fi);
+		ws = wb.getSheet(sheet_name);
+		wr = ws.getRow(row);
+		
+		wc = wr.createCell(cell);
+		wc.setCellValue(message);
+		
+		fo = new FileOutputStream(path);
+		wb.write(fo);
+		
+		fo.close();
+		wb.close();
+		fi.close();
+		
 	}
 }

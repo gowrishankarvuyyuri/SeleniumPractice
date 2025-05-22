@@ -27,24 +27,25 @@ public class Deposit_Calculator_Automation {
 		js.executeScript("window.document.body.style.zoom='80%'");
 		
 		
-		driver.get("https://www.cit.com/cit-bank/resources/calculators/certificate-of-deposit-calculator");
+		driver.get(PropertyUtlity.getXpath("PageUrl"));
 		Thread.sleep(2000);
 		
 		
 		//WebElements Locations
-		WebElement Amount = driver.findElement(By.xpath("//input[@id='mat-input-0']"));
-		WebElement Length = driver.findElement(By.xpath("//input[@id='mat-input-1']"));
-		WebElement Intrest = driver.findElement(By.xpath("//input[@id='mat-input-2']"));
+		WebElement Amount = driver.findElement(By.xpath(PropertyUtlity.getXpath("input1")));
+		WebElement Length = driver.findElement(By.xpath(PropertyUtlity.getXpath("input2")));
+		WebElement Intrest = driver.findElement(By.xpath(PropertyUtlity.getXpath("input3")));
 		
 		
-		String path = System.getProperty("user.dir") + "\\TestData\\Deposit_Calculator.xlsx";
+		String path = System.getProperty("user.dir") + PropertyUtlity.getXpath("fileextention");
 		String sheet_name = "Sheet1";
+		String message;
 		
 		
 		int n_row = ExcelUtility.getRowNumbers(path, sheet_name);
 		int n_cell = ExcelUtility.getCellNumbers(path,sheet_name, n_row);
 		
-		driver.findElement(By.xpath("//button[@class='onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon']")).click();		
+		driver.findElement(By.xpath(PropertyUtlity.getXpath("notification"))).click();		
 		
 		for(int row = 1; row <= n_row; row++) {	
 			
@@ -64,8 +65,8 @@ public class Deposit_Calculator_Automation {
 			Length.sendKeys(length);
 			Intrest.sendKeys(intrest);
 			
-			driver.findElement(By.xpath("//mat-select[@role='combobox']")).click();			
-			List<WebElement> options = driver.findElements(By.xpath("//div[@id='cdk-overlay-0']//mat-option/span"));
+			driver.findElement(By.xpath(PropertyUtlity.getXpath("input4"))).click();			
+			List<WebElement> options = driver.findElements(By.xpath(PropertyUtlity.getXpath("input4_list")));
 			
 			for(WebElement option : options) {
 				
@@ -78,10 +79,10 @@ public class Deposit_Calculator_Automation {
 			}
 	
 			
-			driver.findElement(By.xpath("//form/div/div[5]/button")).click();
+			driver.findElement(By.xpath(PropertyUtlity.getXpath("clicking"))).click();
 			Thread.sleep(2000);
 			
-			String actual_amount = driver.findElement(By.xpath("//div[@id='validResults']//span[4]")).getText();
+			String actual_amount = driver.findElement(By.xpath(PropertyUtlity.getXpath("result"))).getText();
 			
 			StringBuffer buffer = new StringBuffer(actual_amount);
 			buffer.deleteCharAt(0);
@@ -90,10 +91,17 @@ public class Deposit_Calculator_Automation {
 			Thread.sleep(2000);
 			
 			//validation
-			if(expect_amount.equals(actual_amount)) 
+			if(expect_amount.equals(actual_amount)) {
+				message = "Passed";
 				System.out.println("Test Case Passed");
-			else
-				System.out.println("TestCase Not Passed");
+				ExcelUtility.setCellData(path, sheet_name, row, 6, message);
+				
+			}
+			else {
+				message = "Failed";
+				System.out.println("Test Case Failed");
+				ExcelUtility.setCellData(path, sheet_name, row, 6, message);
+			}
 			
 		}
 		driver.quit();

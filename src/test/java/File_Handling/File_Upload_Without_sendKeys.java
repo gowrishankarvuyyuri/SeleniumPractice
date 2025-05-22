@@ -28,23 +28,22 @@ public class File_Upload_Without_sendKeys {
 		driver.get("https://www.naukri.com/");
 		
 		driver.findElement(By.xpath("//a[text()='Login']")).click();
-		
+		Thread.sleep(2000);
+
 		driver.findElement(By.cssSelector("[placeholder='Enter your active Email ID / Username']")).sendKeys("gowrishankarvuyyuri@outlook.com");
-		
 		driver.findElement(By.cssSelector("[placeholder='Enter your password']")).sendKeys("GowriShankar2002");
-		
 		driver.findElement(By.xpath("//button[text()='Login']")).click();
+		Thread.sleep(2000);
 		
 		driver.findElement(By.cssSelector("[href='/mnjuser/profile']")).click();
-		
 		Thread.sleep(2000);
 		
 		driver.findElement(By.xpath("//input[@value='Update resume']")).click();
-
 		Thread.sleep(2000);
 		
 		//which will capture/copying the file path to the clipboard
-		StringSelection stringSelection = new StringSelection("C:\\Users\\gowri\\Downloads\\Learnings\\GowriShankar_MResume.pdf");
+		//StringSelection stringSelection = new StringSelection("C:\\Users\\gowri\\Downloads\\Learnings\\GowriShankar_MResume.pdf");
+		StringSelection stringSelection = new StringSelection(System.getProperty("user.dir")+"\\Downloads\\Resume.pdf");
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(stringSelection, null);
 		
@@ -64,6 +63,7 @@ public class File_Upload_Without_sendKeys {
 		robot.keyPress(KeyEvent.VK_ENTER);
 		robot.keyRelease(KeyEvent.VK_ENTER);
 		
+		Thread.sleep(7000);
 		driver.close();
 	}
 
